@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ingresia — Convierte lo que tienes en ingresos</title>
+<style>
+:root{--bg:#faf8ff;--card:#fff;--ink:#171522;--muted:#6d6878;--accent:#7c3aed;--accent2:#a855f7;--line:#e9e4f2;--ok:#16845b}
+*{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:linear-gradient(145deg,#fbf9ff,#f5efff);color:var(--ink)}
+header{padding:22px 7%;display:flex;justify-content:space-between;align-items:center}.logo{font-size:24px;font-weight:900}.logo span{color:var(--accent)}
+.badge{font-size:12px;background:#eee6ff;color:#6530c7;padding:8px 12px;border-radius:99px;font-weight:700}
+main{max-width:1050px;margin:auto;padding:35px 20px 70px}.hero{text-align:center;padding:35px 0 25px}.hero h1{font-size:clamp(38px,7vw,68px);line-height:.98;margin:0 auto 18px;max-width:800px;letter-spacing:-2px}.hero h1 span{color:var(--accent)}.hero p{color:var(--muted);font-size:18px;max-width:650px;margin:auto}
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:0 15px 50px #5c3a9b12;padding:28px;margin:25px auto;max-width:800px}
+.progress{height:8px;background:#eeeaf5;border-radius:99px;overflow:hidden}.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:20%;transition:.3s}
+.q{font-size:25px;font-weight:800;margin:22px 0 16px}.options{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.opt{padding:16px;border:1px solid var(--line);border-radius:15px;background:#fff;text-align:left;cursor:pointer;font-size:15px}.opt:hover{border-color:#a77bea;background:#fbf8ff}.opt.selected{border:2px solid var(--accent);background:#f5efff}
+button{border:0;border-radius:14px;padding:14px 20px;font-weight:800;cursor:pointer;background:var(--accent);color:white;font-size:15px}.secondary{background:#eeeaf5;color:#332b42}.actions{display:flex;justify-content:space-between;margin-top:22px;gap:10px}
+.hidden{display:none}.resultGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.idea{border:1px solid var(--line);border-radius:18px;padding:20px}.idea h3{margin:0 0 9px}.money{font-size:22px;font-weight:900;color:var(--ok)}.tag{display:inline-block;font-size:11px;padding:6px 9px;border-radius:99px;background:#f0ebff;color:#6633bf;margin-bottom:12px;font-weight:800}
+.planGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.plan{padding:22px;border:1px solid var(--line);border-radius:20px}.plan.featured{border:2px solid var(--accent)}.price{font-size:32px;font-weight:900;margin:10px 0}.plan li{margin:9px 0;color:#514b5c}
+.small{font-size:12px;color:var(--muted)}footer{text-align:center;color:var(--muted);padding:20px}
+@media(max-width:700px){.options,.resultGrid,.planGrid{grid-template-columns:1fr}.hero h1{font-size:44px}.card{padding:20px}}
+</style>
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#7c3aed"></head>
+<body>
+<header><div class="logo">ingres<span>ia</span></div><div class="badge">MVP · 2026</div></header>
+<main>
+<section class="hero">
+<h1>Convierte lo que tienes en <span>una oportunidad de ingresos.</span></h1>
+<p>Cuéntanos qué sabes hacer, qué recursos tienes y cuánto quieres conseguir. Ingresia crea un plan accionable con ayuda de IA.</p>
+</section>
+
+<section id="quiz" class="card">
+<div class="progress"><i id="bar"></i></div>
+<div id="question"></div>
+<div class="actions"><button id="back" class="secondary" onclick="prev()">Atrás</button><button id="next" onclick="next()">Continuar</button></div>
+</section>
+
+<section id="results" class="card hidden">
+<div class="tag">TU PLAN INICIAL</div>
+<h2 id="welcome"></h2>
+<p class="small">Estimaciones orientativas, no promesas de ingresos.</p>
+<div class="resultGrid" id="ideas"></div>
+<div class="card" style="margin:22px 0 0;background:#fbf9ff">
+<h3>🚀 Tu primer objetivo</h3><p id="action"></p>
+<button onclick="showPlans()">Desbloquear plan PRO</button>
+</div>
+</section>
+
+<section id="plans" class="card hidden">
+<div class="tag">MONETIZACIÓN</div><h2>Haz que Ingresia sea tu asistente de ingresos</h2>
+<div class="planGrid">
+<div class="plan"><h3>Gratis</h3><div class="price">0 €</div><ul><li>1 plan inicial</li><li>3 ideas de monetización</li><li>Herramientas básicas</li></ul><button class="secondary">Plan actual</button></div>
+<div class="plan featured"><h3>PRO</h3><div class="price">9,99 €<small>/mes</small></div><ul><li>Planes ilimitados</li><li>Contenido generado con IA</li><li>Seguimiento de objetivos</li><li>Automatizaciones</li></ul><button>Empezar PRO</button></div>
+<div class="plan"><h3>PRO+</h3><div class="price">19,99 €<small>/mes</small></div><ul><li>Agentes de IA</li><li>Automatizaciones avanzadas</li><li>Análisis de oportunidades</li><li>Soporte prioritario</li></ul><button>Elegir PRO+</button></div>
+</div>
+<p class="small" style="margin-top:20px">En una versión comercial, los botones de pago se conectarían a Stripe o a las compras integradas de las tiendas.</p>
+</section>
+</main>
+<footer>Ingresia · Prototipo conceptual · Las cifras de ingresos son ilustrativas.</footer>
+
+<script>
+const qs=[
+ ["¿Qué tienes para empezar?",["📱 Solo un móvil","💻 Móvil + ordenador","🎨 Una habilidad que puedo vender","📦 Productos o cosas para vender"]],
+ ["¿Cuánto tiempo puedes dedicar?",["⏱️ 30 min al día","🕐 1–2 horas al día","🔥 3–5 horas al día","🚀 Más de 5 horas"]],
+ ["¿Qué objetivo tienes?",["💶 50–100 €/mes","💰 100–500 €/mes","📈 500–1.000 €/mes","🚀 Más de 1.000 €/mes"]],
+ ["¿Qué prefieres hacer?",["🎥 Crear contenido","🛍️ Vender productos","🧠 Ofrecer servicios","🤖 Automatizar tareas con IA"]],
+ ["¿Dónde quieres trabajar?",["🏠 Desde casa","🌐 Totalmente online","📱 Solo con el móvil","✨ Me da igual si es híbrido"]]
+];
+let step=0,ans=[];
+function render(){document.getElementById("bar").style.width=((step+1)/qs.length*100)+"%";let [q,opts]=qs[step];document.getElementById("question").innerHTML='<div class="q">'+q+'</div><div class="options">'+opts.map((x,i)=>`<button class="opt ${ans[step]===i?'selected':''}" onclick="pick(${i})">${x}</button>`).join("")+'</div>';document.getElementById("back").style.visibility=step?'visible':'hidden';document.getElementById("next").textContent=step===qs.length-1?'Crear mi plan':'Continuar'}
+function pick(i){ans[step]=i;render()}
+function next(){if(ans[step]===undefined){alert("Elige una opción para continuar.");return} if(step<qs.length-1){step++;render()}else makePlan()}
+function prev(){if(step>0){step--;render()}}
+function makePlan(){
+document.getElementById("quiz").classList.add("hidden");document.getElementById("results").classList.remove("hidden");
+let target=qs[2][1][ans[2]||0], skills=qs[0][1][ans[0]||0];
+document.getElementById("welcome").textContent="Tu objetivo: "+target;
+let ideas=[
+["Servicio digital con IA","Convierte una habilidad en un servicio sencillo y usa IA para acelerar la entrega.","100–500 € / mes"],
+["Contenido monetizable","Crea contenido corto alrededor de una habilidad/producto y prueba afiliación o servicios.","50–500 € / mes"],
+["Producto digital","Empaqueta conocimiento, plantillas o recursos y véndelos online.","50–1.000 €+ / mes"]
+];
+document.getElementById("ideas").innerHTML=ideas.map(a=>`<div class="idea"><div class="tag">OPORTUNIDAD</div><h3>${a[0]}</h3><p>${a[1]}</p><div class="money">${a[2]}</div></div>`).join("");
+document.getElementById("action").textContent=`Empieza con ${skills.toLowerCase()}. Tu primera tarea es elegir una sola oferta, crear una muestra con IA y ponerla delante de 10 posibles clientes.`;
+window.scrollTo({top:0,behavior:"smooth"})
+}
+function showPlans(){document.getElementById("plans").classList.remove("hidden");document.getElementById("plans").scrollIntoView({behavior:"smooth"})}
+render();
+</script>
+<script>if("serviceWorker" in navigator){navigator.serviceWorker.register("./sw.js")}</script></body></html>
